@@ -12,7 +12,7 @@ DEVOPS_TOKEN=$(curl -s --request POST \
 echo "Getting databases..."
 DBS=$(curl -s --request GET \
   --url "https://api.astra.datastax.com/v2/databases?include=nonterminated&provider=all&limit=25" \
-  --header "authorization: Bearer ${DEVOPS_TOKEN}" \
+  --header "authorization: Bearer AstraCS:lUybvxCQMtvdNxKLQcZtYWBN:0a65c5901f3f80238afeb86dacca6b852266a028b3f4df53a960d3cd8c2cfd0f" \
   --header 'content-type: application/json')
 
 # TODO: Allow the user to select the DB
@@ -31,8 +31,8 @@ gp env ASTRA_SECURE_BUNDLE_URL=${FIRST_DB_SECURE_BUNDLE_URL} &>/dev/null
 # Download the secure connect bundle
 curl -s -L $(echo $FIRST_DB_SECURE_BUNDLE_URL | sed "s/\"//g") -o astra-creds.zip
 
-export ASTRA_DB_BUNDLE="astra-creds.zip"
-gp env ASTRA_DB_BUNDLE="astra-creds.zip" &>/dev/null
+export ASTRA_DB_BUNDLE="./astra-creds.zip"
+gp env ASTRA_DB_BUNDLE="./astra-creds.zip" &>/dev/null
 
 export ASTRA_DB_USERNAME=$(echo ${FIRST_DB_USER} | sed "s/\"//g")
 gp env ASTRA_DB_USERNAME=$(echo ${FIRST_DB_USER} | sed "s/\"//g") &>/dev/null

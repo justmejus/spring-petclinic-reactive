@@ -22,6 +22,7 @@ import org.springframework.samples.petclinic.visit.db.VisitReactiveDaoMapperBuil
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
+import java.nio.file.Paths;
 
 /**
  * Setup connectivity to Cassandra (locally or using Dbaas) using the Datastax Java driver and configuration files.
@@ -77,8 +78,12 @@ public class CassandraConfig {
         if (useAstra) {
              LOGGER.info("Loading configuration to Astra");
              // the file 'application-astra.conf' contains all configuration keys
-             configReader = DriverConfigLoader.fromClasspath("application-astra.conf");
-             cqlSession   = CqlSession.builder().withConfigLoader(configReader).build();
+             //configReader = DriverConfigLoader.fromClasspath("application-astra.conf");
+             //cqlSession   = CqlSession.builder().withConfigLoader(configReader).build();
+             cqlSession   = CqlSession.builder().withCloudSecureConnectBundle(Paths.get("/workspace/spring-petclinic-reactive/astra-creds.zip"))
+                                                .withAuthCredentials("lUybvxCQMtvdNxKLQcZtYWBN","TmXBC4UB0gjWIJHM_-xlbCQxw_q64eBsFMapUzCYYZc0h_u-wW,afTjosOp0yj,1r-,ztTF2mhQta7Dpl-vCdlSLKxHZ+yQaSMWOixbric5ZFOvLMBTxeYe,3nFtuIIC")
+                                                .build();
+            cqlSession.execute("use " + env.get("ASTRA_DB_KEYSPACE"));                                    
         } else {
              // the file 'application-astra.local' contains all configuration keys to work locally
              configReader = DriverConfigLoader.fromClasspath("application-local.conf");
