@@ -63,5 +63,5 @@ Let's do some initial setup by creating a serverless(!) database.
 
 ### Running on Gitpod
 1. Click the 'Open in Gitpod' link:
-[![Open in IDE](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-petclinic/spring-petclinic-reactive)
+[![Open in IDE](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/justmejus/spring-petclinic-reactive)
 <!--- ENDEXCLUDE --->
